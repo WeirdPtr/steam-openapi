@@ -1,0 +1,18 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Steam Web API",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://api.steampowered.com",
+      "description": "Steam Web API Base Url"
+    }
+  ],
+  "paths": {},
+  "tags": []
+}
