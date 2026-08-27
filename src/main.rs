@@ -23,7 +23,11 @@ fn main() {
 
     env_logger::init_from_env(env);
 
-    let api_key = env::var("STEAM_API_KEY").ok();
+    let mut api_key = env::var("STEAM_API_KEY").ok();
+
+    if let Some(key) = &api_key && key.is_empty() {
+        api_key = None;
+    };
 
     if api_key.is_some() {
         info!("A Steam API Key was provided")
