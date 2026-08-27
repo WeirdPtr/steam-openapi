@@ -13,6 +13,2746 @@
       "description": "Steam Web API Base Url"
     }
   ],
-  "paths": {},
-  "tags": []
+  "paths": {
+    "/IAuthenticationService/BeginAuthSessionViaCredentials/v1": {
+      "description": "start authentication process",
+      "post": {
+        "tags": [
+          "IAuthenticationService"
+        ],
+        "parameters": [
+          {
+            "name": "device_friendly_name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "account_name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "encrypted_password",
+            "in": "query",
+            "description": "password, RSA encrypted client side",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "encryption_timestamp",
+            "in": "query",
+            "description": "timestamp to map to a key - STime",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "remember_login",
+            "in": "query",
+            "description": "deprecated",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "platform_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "persistence",
+            "in": "query",
+            "description": "whether we are requesting a persistent or an ephemeral session",
+            "required": false,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "website_id",
+            "in": "query",
+            "description": "(EMachineAuthWebDomain) identifier of client requesting auth",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "device_details",
+            "in": "query",
+            "description": "User-supplied details about the device attempting to sign in",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "guard_data",
+            "in": "query",
+            "description": "steam guard data for client login",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "qos_level",
+            "in": "query",
+            "description": "[ENetQOSLevel] client-specified priority for this auth attempt",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IAuthenticationService/BeginAuthSessionViaQR/v1": {
+      "description": "start authentication process",
+      "post": {
+        "tags": [
+          "IAuthenticationService"
+        ],
+        "parameters": [
+          {
+            "name": "device_friendly_name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "platform_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "device_details",
+            "in": "query",
+            "description": "User-supplied details about the device attempting to sign in",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "website_id",
+            "in": "query",
+            "description": "(EMachineAuthWebDomain) identifier of client requesting auth",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IAuthenticationService/GetAuthSessionInfo/v1": {
+      "description": "get metadata of specific auth session, this will also implicitly bind the calling account",
+      "post": {
+        "tags": [
+          "IAuthenticationService"
+        ],
+        "parameters": [
+          {
+            "name": "client_id",
+            "in": "query",
+            "description": "client ID from scanned QR Code, used for routing",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IAuthenticationService/GetAuthSessionRiskInfo/v1": {
+      "description": "get risk metadata for a specific auth session that has been deemed risky",
+      "post": {
+        "tags": [
+          "IAuthenticationService"
+        ],
+        "parameters": [
+          {
+            "name": "client_id",
+            "in": "query",
+            "description": "client ID from scanned QR Code, used for routing",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "language for optimistic localization of geoloc data",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IAuthenticationService/GetPasswordRSAPublicKey/v1": {
+      "description": "Fetches RSA public key to use to encrypt passwords for a given account name",
+      "get": {
+        "tags": [
+          "IAuthenticationService"
+        ],
+        "parameters": [
+          {
+            "name": "account_name",
+            "in": "query",
+            "description": "user-provided account name to get an RSA key for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IAuthenticationService/NotifyRiskQuizResults/v1": {
+      "description": "notify the server about risk quiz responses for metrics purposes",
+      "post": {
+        "tags": [
+          "IAuthenticationService"
+        ],
+        "parameters": [
+          {
+            "name": "client_id",
+            "in": "query",
+            "description": "client ID for the auth session, used for routing",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "results",
+            "in": "query",
+            "description": "Whether or not the user correctly answered each risk quiz question",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "selected_action",
+            "in": "query",
+            "description": "The action being taken selected by the user during the quiz",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "did_confirm_login",
+            "in": "query",
+            "description": "Whether or not the user went on to confirm the login or not in the case of a passed quiz",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IAuthenticationService/PollAuthSessionStatus/v1": {
+      "description": "poll during authentication process",
+      "post": {
+        "tags": [
+          "IAuthenticationService"
+        ],
+        "parameters": [
+          {
+            "name": "client_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "request_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token_to_revoke",
+            "in": "query",
+            "description": "If this is set to a token owned by this user, that token will be retired",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IAuthenticationService/UpdateAuthSessionWithMobileConfirmation/v1": {
+      "description": "approve an authentication session via mobile 2fa",
+      "post": {
+        "tags": [
+          "IAuthenticationService"
+        ],
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "description": "version field",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "client_id",
+            "in": "query",
+            "description": "pending client ID, from scanned QR Code",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "steamid",
+            "in": "query",
+            "description": "user who wants to login",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "signature",
+            "in": "query",
+            "description": "HMAC digest over {version,client_id,steamid} via user's private key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "confirm",
+            "in": "query",
+            "description": "Whether to confirm the login (true) or deny the login (false)",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "persistence",
+            "in": "query",
+            "description": "whether we are requesting a persistent or an ephemeral session",
+            "required": false,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IAuthenticationService/UpdateAuthSessionWithSteamGuardCode/v1": {
+      "description": "approve an authentication session via steam guard code",
+      "post": {
+        "tags": [
+          "IAuthenticationService"
+        ],
+        "parameters": [
+          {
+            "name": "client_id",
+            "in": "query",
+            "description": "pending client ID, from initialized session",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "steamid",
+            "in": "query",
+            "description": "user who wants to login",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "description": "confirmation code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "code_type",
+            "in": "query",
+            "description": "type of confirmation code",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IBroadcastService/PostGameDataFrameRTMP/v1": {
+      "description": "Add a game meta data frame to broadcast from a client. Uses RTMP token for validation",
+      "post": {
+        "tags": [
+          "IBroadcastService"
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "query",
+            "description": "AppID of the game being broadcasted",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "steamid",
+            "in": "query",
+            "description": "Broadcasters SteamID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "rtmp_token",
+            "in": "query",
+            "description": "Valid RTMP token for the Broadcaster",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "frame_data",
+            "in": "query",
+            "description": "game data frame expressing current state of game (string, zipped, whatever)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IClientStats_1046930/ReportEvent/v1": {
+      "post": {
+        "tags": [
+          "IClientStats_1046930"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IContentServerDirectoryService/GetCDNForVideo/v1": {
+      "get": {
+        "tags": [
+          "IContentServerDirectoryService"
+        ],
+        "parameters": [
+          {
+            "name": "property_type",
+            "in": "query",
+            "description": "ECDNPropertyType",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "client_ip",
+            "in": "query",
+            "description": "client IP address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "client_region",
+            "in": "query",
+            "description": "client region",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IContentServerDirectoryService/GetClientUpdateHosts/v1": {
+      "get": {
+        "tags": [
+          "IContentServerDirectoryService"
+        ],
+        "parameters": [
+          {
+            "name": "cached_signature",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IContentServerDirectoryService/GetDepotPatchInfo/v1": {
+      "get": {
+        "tags": [
+          "IContentServerDirectoryService"
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "depotid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "source_manifestid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "target_manifestid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IContentServerDirectoryService/GetServersForSteamPipe/v1": {
+      "get": {
+        "tags": [
+          "IContentServerDirectoryService"
+        ],
+        "parameters": [
+          {
+            "name": "cell_id",
+            "in": "query",
+            "description": "client Cell ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "max_servers",
+            "in": "query",
+            "description": "max servers in response list",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "ip_override",
+            "in": "query",
+            "description": "client IP address",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "launcher_type",
+            "in": "query",
+            "description": "launcher type",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "ipv6_public",
+            "in": "query",
+            "description": "client public ipv6 address if it knows it",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "current_connections",
+            "in": "query",
+            "description": "what sources is the client currently using",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IContentServerDirectoryService/PickSingleContentServer/v1": {
+      "get": {
+        "tags": [
+          "IContentServerDirectoryService"
+        ],
+        "parameters": [
+          {
+            "name": "property_type",
+            "in": "query",
+            "description": "ECDNPropertyType",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "cell_id",
+            "in": "query",
+            "description": "client Cell ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "client_ip",
+            "in": "query",
+            "description": "client IP address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGCVersion_1046930/GetClientVersion/v1": {
+      "get": {
+        "tags": [
+          "IGCVersion_1046930"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGCVersion_1046930/GetServerVersion/v1": {
+      "get": {
+        "tags": [
+          "IGCVersion_1046930"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGCVersion_1269260/GetClientVersion/v1": {
+      "get": {
+        "tags": [
+          "IGCVersion_1269260"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGCVersion_1269260/GetServerVersion/v1": {
+      "get": {
+        "tags": [
+          "IGCVersion_1269260"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGCVersion_1422450/GetClientVersion/v1": {
+      "get": {
+        "tags": [
+          "IGCVersion_1422450"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGCVersion_1422450/GetServerVersion/v1": {
+      "get": {
+        "tags": [
+          "IGCVersion_1422450"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGCVersion_440/GetClientVersion/v1": {
+      "get": {
+        "tags": [
+          "IGCVersion_440"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGCVersion_440/GetServerVersion/v1": {
+      "get": {
+        "tags": [
+          "IGCVersion_440"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGCVersion_570/GetClientVersion/v1": {
+      "get": {
+        "tags": [
+          "IGCVersion_570"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGCVersion_570/GetServerVersion/v1": {
+      "get": {
+        "tags": [
+          "IGCVersion_570"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGCVersion_583950/GetClientVersion/v1": {
+      "get": {
+        "tags": [
+          "IGCVersion_583950"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGCVersion_583950/GetServerVersion/v1": {
+      "get": {
+        "tags": [
+          "IGCVersion_583950"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGCVersion_730/GetServerVersion/v1": {
+      "get": {
+        "tags": [
+          "IGCVersion_730"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGameNotificationsService/UserCreateSession/v1": {
+      "description": "Creates an async game session",
+      "post": {
+        "tags": [
+          "IGameNotificationsService"
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "query",
+            "description": "The appid to create the session for.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "context",
+            "in": "query",
+            "description": "Game-specified context value the game can used to associate the session with some object on their backend.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "description": "The title of the session to be displayed within each user's list of sessions.",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "users",
+            "in": "query",
+            "description": "The initial state of all users in the session.",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "steamid",
+            "in": "query",
+            "description": "(Optional) steamid to make the request on behalf of -- if specified, the user must be in the session and all users being added to the session must be friends with the user.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGameNotificationsService/UserDeleteSession/v1": {
+      "description": "Deletes an async game session",
+      "post": {
+        "tags": [
+          "IGameNotificationsService"
+        ],
+        "parameters": [
+          {
+            "name": "sessionid",
+            "in": "query",
+            "description": "The sessionid to delete.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "appid",
+            "in": "query",
+            "description": "The appid of the session to delete.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "steamid",
+            "in": "query",
+            "description": "(Optional) steamid to make the request on behalf of -- if specified, the user must be in the session.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IGameNotificationsService/UserUpdateSession/v1": {
+      "description": "Updates an async game session",
+      "post": {
+        "tags": [
+          "IGameNotificationsService"
+        ],
+        "parameters": [
+          {
+            "name": "sessionid",
+            "in": "query",
+            "description": "The sessionid to update.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "appid",
+            "in": "query",
+            "description": "The appid of the session to update.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "description": "(Optional) The new title of the session.  If not specified, the title will not be changed.",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "users",
+            "in": "query",
+            "description": "(Optional) A list of users whose state will be updated to reflect the given state. If the users are not already in the session, they will be added to it.",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "steamid",
+            "in": "query",
+            "description": "(Optional) steamid to make the request on behalf of -- if specified, the user must be in the session and all users being added to the session must be friends with the user.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IHelpRequestLogsService/GetApplicationLogDemand/v1": {
+      "description": "Returns whether the server would like the user to upload logs",
+      "post": {
+        "tags": [
+          "IHelpRequestLogsService"
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IHelpRequestLogsService/UploadUserApplicationLog/v1": {
+      "description": "User uploading application logs",
+      "post": {
+        "tags": [
+          "IHelpRequestLogsService"
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "log_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version_string",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "log_contents",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "request_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IPlayerService/RecordOfflinePlaytime/v1": {
+      "description": "Tracks playtime for a user when they are offline",
+      "post": {
+        "tags": [
+          "IPlayerService"
+        ],
+        "parameters": [
+          {
+            "name": "steamid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "ticket",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "play_sessions",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IPortal2Leaderboards_620/GetBucketizedData/v1": {
+      "get": {
+        "tags": [
+          "IPortal2Leaderboards_620"
+        ],
+        "parameters": [
+          {
+            "name": "leaderboardName",
+            "in": "query",
+            "description": "The leaderboard name to fetch data for.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IPublishedFileService/GetUserVoteSummary/v1": {
+      "description": "Get user vote summary",
+      "get": {
+        "tags": [
+          "IPublishedFileService"
+        ],
+        "parameters": [
+          {
+            "name": "publishedfileids",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamApps/GetSDRConfig/v1": {
+      "get": {
+        "tags": [
+          "ISteamApps"
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "query",
+            "description": "AppID of game",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamApps/GetServersAtAddress/v1": {
+      "get": {
+        "tags": [
+          "ISteamApps"
+        ],
+        "parameters": [
+          {
+            "name": "addr",
+            "in": "query",
+            "description": "IP or IP:queryport to list",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamApps/UpToDateCheck/v1": {
+      "get": {
+        "tags": [
+          "ISteamApps"
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "query",
+            "description": "AppID of game",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "description": "The installed version of the game",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamBroadcast/PlayerStats/v1": {
+      "post": {
+        "tags": [
+          "ISteamBroadcast"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamBroadcast/ViewerHeartbeat/v1": {
+      "get": {
+        "tags": [
+          "ISteamBroadcast"
+        ],
+        "parameters": [
+          {
+            "name": "steamid",
+            "in": "query",
+            "description": "Steam ID of the broadcaster",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "sessionid",
+            "in": "query",
+            "description": "Broadcast Session ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "Viewer token",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "stream",
+            "in": "query",
+            "description": "video stream representation watching",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamDirectory/GetCMList/v1": {
+      "get": {
+        "tags": [
+          "ISteamDirectory"
+        ],
+        "parameters": [
+          {
+            "name": "cellid",
+            "in": "query",
+            "description": "Client's Steam cell ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "maxcount",
+            "in": "query",
+            "description": "Max number of servers to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamDirectory/GetCMListForConnect/v1": {
+      "get": {
+        "tags": [
+          "ISteamDirectory"
+        ],
+        "parameters": [
+          {
+            "name": "cellid",
+            "in": "query",
+            "description": "Client's Steam cell ID, uses IP location if blank",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "cmtype",
+            "in": "query",
+            "description": "Optional CM type filter",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "realm",
+            "in": "query",
+            "description": "Optional Steam Realm filter",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "maxcount",
+            "in": "query",
+            "description": "Max number of servers to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "qoslevel",
+            "in": "query",
+            "description": "Desired connection priority",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamDirectory/GetSteamPipeDomains/v1": {
+      "get": {
+        "tags": [
+          "ISteamDirectory"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamNews/GetNewsForApp/v1": {
+      "get": {
+        "tags": [
+          "ISteamNews"
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "query",
+            "description": "AppID to retrieve news for",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "maxlength",
+            "in": "query",
+            "description": "Maximum length for the content to return, if this is 0 the full content is returned, if it's less then a blurb is generated to fit.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "enddate",
+            "in": "query",
+            "description": "Retrieve posts earlier than this date (unix epoch timestamp)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "# of posts to retrieve (default 20)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "Comma-separated list of tags to filter by (e.g. 'patchnodes')",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamNews/GetNewsForApp/v2": {
+      "get": {
+        "tags": [
+          "ISteamNews"
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "query",
+            "description": "AppID to retrieve news for",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "maxlength",
+            "in": "query",
+            "description": "Maximum length for the content to return, if this is 0 the full content is returned, if it's less then a blurb is generated to fit.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "enddate",
+            "in": "query",
+            "description": "Retrieve posts earlier than this date (unix epoch timestamp)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "# of posts to retrieve (default 20)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "feeds",
+            "in": "query",
+            "description": "Comma-separated list of feed names to return news for",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "Comma-separated list of tags to filter by (e.g. 'patchnodes')",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamRemoteStorage/GetCollectionDetails/v1": {
+      "post": {
+        "tags": [
+          "ISteamRemoteStorage"
+        ],
+        "parameters": [
+          {
+            "name": "collectioncount",
+            "in": "query",
+            "description": "Number of collections being requested",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "publishedfileids[0]",
+            "in": "query",
+            "description": "collection ids to get the details for",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamRemoteStorage/GetPublishedFileDetails/v1": {
+      "post": {
+        "tags": [
+          "ISteamRemoteStorage"
+        ],
+        "parameters": [
+          {
+            "name": "itemcount",
+            "in": "query",
+            "description": "Number of items being requested",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "publishedfileids[0]",
+            "in": "query",
+            "description": "published file id to look up",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamUserOAuth/GetTokenDetails/v1": {
+      "get": {
+        "tags": [
+          "ISteamUserOAuth"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "description": "OAuth2 token for which to return details",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v1": {
+      "get": {
+        "tags": [
+          "ISteamUserStats"
+        ],
+        "parameters": [
+          {
+            "name": "gameid",
+            "in": "query",
+            "description": "GameID to retrieve the achievement percentages for",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2": {
+      "get": {
+        "tags": [
+          "ISteamUserStats"
+        ],
+        "parameters": [
+          {
+            "name": "gameid",
+            "in": "query",
+            "description": "GameID to retrieve the achievement percentages for",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamUserStats/GetGlobalStatsForGame/v1": {
+      "get": {
+        "tags": [
+          "ISteamUserStats"
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "query",
+            "description": "AppID that we're getting global stats for",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Number of stats get data for",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "name[0]",
+            "in": "query",
+            "description": "Names of stat to get data for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startdate",
+            "in": "query",
+            "description": "Start date for daily totals (unix epoch timestamp)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "enddate",
+            "in": "query",
+            "description": "End date for daily totals (unix epoch timestamp)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamUserStats/GetNumberOfCurrentPlayers/v1": {
+      "get": {
+        "tags": [
+          "ISteamUserStats"
+        ],
+        "parameters": [
+          {
+            "name": "appid",
+            "in": "query",
+            "description": "AppID that we're getting user count for",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamWebAPIUtil/GetServerInfo/v1": {
+      "get": {
+        "tags": [
+          "ISteamWebAPIUtil"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ISteamWebAPIUtil/GetSupportedAPIList/v1": {
+      "get": {
+        "tags": [
+          "ISteamWebAPIUtil"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "description": "access key",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IStoreService/GetGamesFollowed/v1": {
+      "description": "Get the list of games a user is following",
+      "get": {
+        "tags": [
+          "IStoreService"
+        ],
+        "parameters": [
+          {
+            "name": "steamid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IStoreService/GetGamesFollowedCount/v1": {
+      "description": "Get the number of games a user is following",
+      "get": {
+        "tags": [
+          "IStoreService"
+        ],
+        "parameters": [
+          {
+            "name": "steamid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IStoreService/GetRecommendedTagsForUser/v1": {
+      "description": "Get a set of tags that are recommended for the user based on recent playtime.",
+      "get": {
+        "tags": [
+          "IStoreService"
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "country_code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "favor_rarer_tags",
+            "in": "query",
+            "description": "Biases tags towards tags that are less common. e.g. Favor Zombies over Action if the user plays the same number of games with both tags.",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ITFSystem_440/GetWorldStatus/v1": {
+      "get": {
+        "tags": [
+          "ITFSystem_440"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IWishlistService/GetWishlist/v1": {
+      "description": "Get a user's wishlist.",
+      "get": {
+        "tags": [
+          "IWishlistService"
+        ],
+        "parameters": [
+          {
+            "name": "steamid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IWishlistService/GetWishlistItemCount/v1": {
+      "description": "Get the number of items on a user's wishlist.",
+      "get": {
+        "tags": [
+          "IWishlistService"
+        ],
+        "parameters": [
+          {
+            "name": "steamid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/IWishlistService/GetWishlistSortedFiltered/v1": {
+      "description": "Get a user's paginated wishlist applying various sorts and filters",
+      "get": {
+        "tags": [
+          "IWishlistService"
+        ],
+        "parameters": [
+          {
+            "name": "steamid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "context",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "data_request",
+            "in": "query",
+            "description": "If passed, item data will be returned",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "sort_order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "filters",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "start_index",
+            "in": "query",
+            "description": "Data in this range will be filled in with StoreBrowse data",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "share_token",
+            "in": "query",
+            "description": "The wishlist share token. Determines what items are visible and the effective filters.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "ITFSystem_440"
+    },
+    {
+      "name": "IBroadcastService"
+    },
+    {
+      "name": "IGCVersion_1269260"
+    },
+    {
+      "name": "IAuthenticationService"
+    },
+    {
+      "name": "IGCVersion_1422450"
+    },
+    {
+      "name": "ISteamNews"
+    },
+    {
+      "name": "ISteamWebAPIUtil"
+    },
+    {
+      "name": "IContentServerDirectoryService"
+    },
+    {
+      "name": "IHelpRequestLogsService"
+    },
+    {
+      "name": "IStoreService"
+    },
+    {
+      "name": "IGCVersion_1046930"
+    },
+    {
+      "name": "ISteamUserOAuth"
+    },
+    {
+      "name": "ISteamUserStats"
+    },
+    {
+      "name": "IClientStats_1046930"
+    },
+    {
+      "name": "IPublishedFileService"
+    },
+    {
+      "name": "IGCVersion_570"
+    },
+    {
+      "name": "IPortal2Leaderboards_620"
+    },
+    {
+      "name": "ISteamRemoteStorage"
+    },
+    {
+      "name": "IGameNotificationsService"
+    },
+    {
+      "name": "IGCVersion_583950"
+    },
+    {
+      "name": "IWishlistService"
+    },
+    {
+      "name": "IGCVersion_440"
+    },
+    {
+      "name": "ISteamBroadcast"
+    },
+    {
+      "name": "IPlayerService"
+    },
+    {
+      "name": "ISteamApps"
+    },
+    {
+      "name": "ISteamDirectory"
+    },
+    {
+      "name": "IGCVersion_730"
+    }
+  ]
 }
