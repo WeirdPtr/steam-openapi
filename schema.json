@@ -2674,85 +2674,85 @@
   },
   "tags": [
     {
-      "name": "ITFSystem_440"
-    },
-    {
-      "name": "IBroadcastService"
-    },
-    {
-      "name": "IGCVersion_1269260"
-    },
-    {
-      "name": "IAuthenticationService"
-    },
-    {
-      "name": "IGCVersion_1422450"
-    },
-    {
-      "name": "ISteamNews"
-    },
-    {
-      "name": "ISteamWebAPIUtil"
-    },
-    {
-      "name": "IContentServerDirectoryService"
-    },
-    {
-      "name": "IHelpRequestLogsService"
-    },
-    {
-      "name": "IStoreService"
-    },
-    {
-      "name": "IGCVersion_1046930"
-    },
-    {
-      "name": "ISteamUserOAuth"
-    },
-    {
-      "name": "ISteamUserStats"
-    },
-    {
-      "name": "IClientStats_1046930"
-    },
-    {
-      "name": "IPublishedFileService"
-    },
-    {
-      "name": "IGCVersion_570"
-    },
-    {
-      "name": "IPortal2Leaderboards_620"
-    },
-    {
-      "name": "ISteamRemoteStorage"
-    },
-    {
-      "name": "IGameNotificationsService"
-    },
-    {
-      "name": "IGCVersion_583950"
-    },
-    {
-      "name": "IWishlistService"
-    },
-    {
-      "name": "IGCVersion_440"
-    },
-    {
       "name": "ISteamBroadcast"
     },
     {
       "name": "IPlayerService"
     },
     {
-      "name": "ISteamApps"
+      "name": "ISteamWebAPIUtil"
+    },
+    {
+      "name": "IGameNotificationsService"
+    },
+    {
+      "name": "IGCVersion_440"
+    },
+    {
+      "name": "IStoreService"
+    },
+    {
+      "name": "IPublishedFileService"
+    },
+    {
+      "name": "IHelpRequestLogsService"
+    },
+    {
+      "name": "IWishlistService"
+    },
+    {
+      "name": "IAuthenticationService"
+    },
+    {
+      "name": "ITFSystem_440"
+    },
+    {
+      "name": "IPortal2Leaderboards_620"
+    },
+    {
+      "name": "IGCVersion_570"
     },
     {
       "name": "ISteamDirectory"
     },
     {
+      "name": "ISteamUserOAuth"
+    },
+    {
+      "name": "ISteamApps"
+    },
+    {
       "name": "IGCVersion_730"
+    },
+    {
+      "name": "IClientStats_1046930"
+    },
+    {
+      "name": "ISteamUserStats"
+    },
+    {
+      "name": "ISteamRemoteStorage"
+    },
+    {
+      "name": "IGCVersion_1269260"
+    },
+    {
+      "name": "IBroadcastService"
+    },
+    {
+      "name": "ISteamNews"
+    },
+    {
+      "name": "IContentServerDirectoryService"
+    },
+    {
+      "name": "IGCVersion_1422450"
+    },
+    {
+      "name": "IGCVersion_583950"
+    },
+    {
+      "name": "IGCVersion_1046930"
     }
   ]
 }
