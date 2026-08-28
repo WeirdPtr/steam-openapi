@@ -25,7 +25,9 @@ fn main() {
 
     let mut api_key = env::var("STEAM_API_KEY").ok();
 
-    if let Some(key) = &api_key && key.is_empty() {
+    if let Some(key) = &api_key
+        && key.is_empty()
+    {
         api_key = None;
     };
 
@@ -35,10 +37,12 @@ fn main() {
         warn!("No Steam API Key was provided")
     }
 
-    let api_interfaces = fetch_endpoints(api_key.as_deref())
+    let mut api_interfaces = fetch_endpoints(api_key.as_deref())
         .unwrap()
         .api_list
         .interfaces;
+
+    api_interfaces.sort_by(|a, b| a.name.cmp(&b.name));
 
     info!("Fetched {} interfaces", api_interfaces.len());
 
@@ -60,7 +64,8 @@ fn main() {
         })
         .collect::<HashMap<String, Tag>>();
 
-    let openapi_tags = tags.values().cloned().collect::<Vec<_>>();
+    let mut openapi_tags = tags.values().cloned().collect::<Vec<_>>();
+    openapi_tags.sort_by(|a, b| a.name.cmp(&b.name));
 
     let mut path_builder = PathsBuilder::new();
 
@@ -74,7 +79,9 @@ fn main() {
         )
         .build();
 
-    for api_interface in api_interfaces.iter() {
+    for api_interface in api_interfaces.iter_mut() {
+        api_interface.methods.sort_by(|a, b| a.name.cmp(&b.name));
+
         for method in api_interface.methods.iter() {
             let normalized_name = if api_interface.name.starts_with('/') {
                 &api_interface.name
@@ -84,7 +91,7 @@ fn main() {
 
             let path_str = format!("{}/{}/v{}", normalized_name, method.name, method.version);
 
-            let parameters = method
+            let mut parameters = method
                 .parameters
                 .iter()
                 .map(|param| {
@@ -98,6 +105,8 @@ fn main() {
                         .build()
                 })
                 .collect::<Vec<_>>();
+
+            parameters.sort_by(|a, b| a.name.cmp(&b.name));
 
             let parameters = match parameters.is_empty() {
                 true => None,
