@@ -5884,6 +5884,15 @@
             }
           },
           {
+            "name": "excluded_apps_with_content_descriptors",
+            "in": "query",
+            "description": "(Optional) Filter out items for apps that have these content descriptors.",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
             "name": "excluded_content_descriptors",
             "in": "query",
             "description": "(Optional) Filter out items that have these content descriptors.",
@@ -6266,6 +6275,15 @@
             "in": "query",
             "description": "Return the data for the specified revision.",
             "required": false,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "excluded_apps_with_content_descriptors",
+            "in": "query",
+            "description": "(Optional) Filter out items for apps that have these content descriptors.",
+            "required": true,
             "schema": {
               "type": "object"
             }
